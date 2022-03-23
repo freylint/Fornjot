@@ -6,6 +6,7 @@ mod geometry;
 mod handle;
 mod iter;
 mod topology;
+mod traits;
 mod validate;
 
 pub use self::{
@@ -13,6 +14,7 @@ pub use self::{
     handle::Handle,
     iter::Iter,
     topology::Topology,
+    traits::GeoObject,
     validate::{ValidationError, ValidationResult},
 };
 

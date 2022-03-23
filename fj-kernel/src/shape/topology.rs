@@ -9,7 +9,8 @@ use crate::{
 
 use super::{
     handle::{Handle, Storage},
-    Cycles, Edges, Geometry, Iter, ValidationError, ValidationResult, Vertices,
+    Cycles, Edges, Geometry, Iter, TopoObject, ValidationError,
+    ValidationResult, Vertices,
 };
 
 /// The vertices of a shape
@@ -237,6 +238,16 @@ impl Topology<'_> {
     pub fn faces(&self) -> Iter<Face> {
         Iter::new(self.geometry.faces)
     }
+
+    /// Merge the provided objects into the shape
+    pub fn merge<T>(&mut self, objects: impl IntoIterator<Item = T>)
+    where
+        T: TopoObject,
+    {
+        for object in objects.into_iter() {
+            object.merge_into(&mut self.geometry, self);
+        }
+    }
 }
 
 #[cfg(test)]
@@ -368,6 +379,16 @@ mod tests {
 
         Ok(())
     }
+
+    // #[test]
+    // fn merge_vertex() -> anyhow::Result<()> {
+    //     let mut shape = TestShape::new();
+    //     let vertex = shape.add_vertex()?;
+
+    //     assert_eq!(shape.contains(&vertex), false);
+
+    //     Ok(())
+    // }
 
     struct TestShape {
         inner: Shape,

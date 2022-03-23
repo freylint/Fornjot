@@ -14,7 +14,7 @@ pub use self::{
     handle::Handle,
     iter::Iter,
     topology::Topology,
-    traits::GeoObject,
+    traits::{GeoObject, TopoObject},
     validate::{ValidationError, ValidationResult},
 };
 

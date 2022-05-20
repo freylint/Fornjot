@@ -106,7 +106,6 @@ impl Model {
     ///
     /// Please refer to [`Model::load_and_watch`], if you want to watch the
     /// model for changes, reloading it continually.
-    #[cfg(not(target_family = "wasm"))]
     pub fn load_once(
         &self,
         arguments: &Parameters,
@@ -135,6 +134,17 @@ impl Model {
             let lib = libloading::Library::new(&self.lib_path)?;
             let model: libloading::Symbol<ModelFn> = lib.get(b"model")?;
             model(arguments)
+        };
+
+        #[cfg(target_family = "wasm")]
+        let shape = {
+            // Load wasm file from disk
+
+            // Compile wasm module
+
+            // Extract model fn* from module
+
+            // Execute and return output of model fn*
         };
 
         Ok(shape)

@@ -75,30 +75,6 @@ impl Model {
         })
     }
 
-    /// Builds the model
-    #[inline]
-    fn build_model(path: &String) -> Result<(), Error> {
-        let status = Command::new("cargo")
-            .arg("build")
-            .args(["--manifest-path", path])
-            .status()?;
-
-        if !status.success() {
-            return Err(Error::Compile);
-        }
-
-        Ok(())
-    }
-
-    /// Attempts to build the manifest and model for loading
-    #[inline]
-    fn load_manifest_data(&self) -> Result<String, Error> {
-        let manifest_path = self.manifest_path.display().to_string();
-        Self::build_model(&manifest_path)?;
-
-        Ok(manifest_path)
-    }
-
     /// Load the model once
     ///
     /// The passed arguments are provided to the model. Returns the shape that
@@ -110,8 +86,16 @@ impl Model {
         &self,
         arguments: &Parameters,
     ) -> Result<fj::Shape, Error> {
-        // Build model
-        self.load_manifest_data()?;
+        let manifest_path = self.manifest_path.display().to_string();
+
+        let status = Command::new("cargo")
+            .arg("build")
+            .args(["--manifest-path", &manifest_path])
+            .status()?;
+
+        if !status.success() {
+            return Err(Error::Compile);
+        }
 
         // So, strictly speaking this is all unsound:
         // - `Library::new` requires us to abide by the arbitrary requirements

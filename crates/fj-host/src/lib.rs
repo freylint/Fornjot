@@ -305,6 +305,7 @@ pub enum Error {
 
     /// Failed to load the model's dynamic library
     #[error("Error loading model from dynamic library")]
+    #[cfg(not(target_family = "wasm"))]
     LibLoading(#[from] libloading::Error),
 
     /// Error while watching the model code for changes

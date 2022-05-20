@@ -15,8 +15,8 @@ members = [
     "models/group",
     "models/spacer",
     "models/star",
+    "models/wasm_cube",
 
-    "tools/export-validator",
     "tools/release-operator",
 ]
 default-members = [

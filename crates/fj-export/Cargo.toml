@@ -13,7 +13,7 @@ categories = ["encoding", "mathematics", "rendering"]
 
 
 [dependencies]
-threemf = "0.3.0"
+threemf = { git = "https://github.com/freylint/3mf-rs.git", branch = "feature/wasm32" }
 
 [dependencies.fj-interop]
 version = "0.6.0"

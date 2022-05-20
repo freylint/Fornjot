@@ -11,9 +11,13 @@ license = "0BSD"
 keywords = ["cad", "programmatic", "code-cad"]
 categories = ["encoding", "mathematics", "rendering"]
 
+[target.'cfg(target_family = "wasm")'.dependencies]
+web-sys = "0.3.57"
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+libloading = "0.7.2"
 
 [dependencies]
-libloading = "0.7.2"
 notify = "5.0.0-pre.15"
 thiserror = "1.0.31"
 

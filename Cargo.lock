@@ -743,6 +743,7 @@ dependencies = [
  "libloading",
  "notify",
  "thiserror",
+ "web-sys",
 ]
 
 [[package]]

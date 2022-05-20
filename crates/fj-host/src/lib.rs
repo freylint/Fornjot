@@ -292,6 +292,7 @@ impl Parameters {
 }
 
 /// An error that can occur when loading or reloading a model
+#[non_exhaustive]
 #[derive(Debug, Error)]
 pub enum Error {
     /// Model failed to compile
